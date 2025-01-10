@@ -1,18 +1,37 @@
 * {
     outline: 1px solid red;
 }
-
+/* Header */
 .container {
     display: flex;
     justify-content: space-between;
     font-size: 24px;
+    color: #DBDFAC;
     margin-bottom: 10px;
     padding: 0 8px 5px 8px;
-    border-bottom: 2px solid red;
+    /* border-bottom: 2px solid #4B3F72; */
+    background-color: #383961;
 }
 
 .sign-in {
     display: flex;
     align-items: center;
     margin-right: 25px;
+}
+
+/* Links */
+a {
+    padding: 2px;
+    margin: 5px;
+}
+a:link {
+    color: #DBDFAC;
+}
+
+a:visited {
+    color: #5F758E;
+}
+
+a:hover {
+    color: #3B1F2B
 }
