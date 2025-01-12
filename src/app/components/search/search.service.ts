@@ -1,20 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment, ApiPaths } from './../../../environments/environment';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs';
+import { NutritionDetails } from '../../Interfaces/nutrition-details';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getFoodNutrition(): any { //TODO: need to update type and add in backend url
-    return fetch('api url').then(this.handleErrors);
+  getFoodNutrition(searchItem: string): Observable<NutritionDetails[]>{
+    const url = `${environment.baseURL}/${ApiPaths.GetItem}?query=${searchItem}`;
+    return this.http.get<NutritionDetails[]>(url)
+      .pipe(
+        catchError(this.handleError<NutritionDetails[]>('getNutrition', []))
+      );
   }
 
-  handleErrors(response: any){
-    if (!response.ok){
-      throw Error(response.statusText);
+  private handleError<T>(operation = 'operation', result?: T){
+    return (error:any): Observable<T> => {
+      console.error(error);
+
+      return of(result as T);
     }
-    return response;
   }
 }
